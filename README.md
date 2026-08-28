@@ -1,22 +1,29 @@
-# 🎧 Meu Projeto de Helpdesk
+## 🎧 Sistema de Helpdesk em PHP
 
-Este é o meu primeiro sistema de helpdesk! Criei este projeto para praticar desenvolvimento de software e construir a interface de um sistema de abertura e controle de chamados de suporte.
+Este é o meu projeto de sistema de helpdesk! Desenvolvi esta aplicação para praticar desenvolvimento web full stack básico, criando um sistema capaz de receber, salvar e gerenciar chamados de suporte técnico.
 
 ## 📌 O que o sistema faz?
 
-- Apresenta a interface visual para abertura de novos chamados.
-- Exibe a estrutura de uma lista de chamados de suporte.
-- Demonstra o layout das telas do sistema para o usuário e atendentes.
+- **Formulário de Chamados:** Permite que o usuário envie um novo chamado com título, descrição e prioridade.
+- **Integração com Banco de Dados:** Salva todos os chamados diretamente no banco de dados SQL.
+- **Listagem Dinâmica:** Exibe na tela os chamados que estão salvos no banco.
+- **Gerenciamento de Status:** Permite atualizar ou encerrar chamados abertos.
 
-## 🛠️ Tecnologias que usei
+## 🛠️ Tecnologias Utilizadas
 
-- **HTML5:** Para criar a estrutura, os formulários e os textos das páginas.
-- **CSS3:** Para estilizar o projeto, definindo cores, fontes, alinhamentos e layout.
+- **Frontend:** HTML5 e CSS3 (para a interface e estilo visual).
+- **Backend:** PHP (para processar os dados dos formulários e a lógica do servidor).
+- **Banco de Dados:** SQL / MySQL (para armazenar e organizar as informações dos tickets).
 
-## 🚀 Como rodar o projeto na sua máquina
+## 🚀 Como Executar o Projeto
 
-Como este é um projeto estático de front-end, você pode testá-lo de forma bem simples:
+Como o projeto utiliza PHP e banco de dados SQL, você precisará de um ambiente de servidor local (como XAMPP, WAMP ou Laragon).
 
-1. Baixe os arquivos do repositório ou faça o clone:
+### Pré-requisitos
+- Um servidor local instalado (ex: **XAMPP**).
+
+### Passo a Passo
+
+1. **Baixe ou clone o repositório:**
    ```bash
    git clone [https://github.com/seu-usuario/nome-do-repositorio.git](https://github.com/seu-usuario/nome-do-repositorio.git)
