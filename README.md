@@ -55,7 +55,3 @@ O projeto utiliza as seguintes tecnologias:
 - **Node.js e npm** — gerenciamento de dependências e ferramentas
   de desenvolvimento do frontend.
 - **Git e GitHub** — controle de versão e hospedagem do código-fonte.
-
-tests/
-├── Feature/
-└── Unit/
