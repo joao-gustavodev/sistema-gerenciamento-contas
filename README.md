@@ -1,88 +1,61 @@
-# SGC — Sistema de Gestão de Contas
+# Sistema de Gerenciamento de Contas (SGC)
 
-Aplicação Laravel para administrar contas financeiras e calcular saldos com base em lançamentos de crédito e débito.
+O **Sistema de Gerenciamento de Contas (SGC)** é uma aplicação web desenvolvida
+para auxiliar no gerenciamento e no acompanhamento de informações financeiras,
+permitindo organizar contas, registrar movimentações e visualizar informações
+por meio de um painel centralizado.
 
-## Acesso e permissões
+O projeto utiliza o framework Laravel e tecnologias do ecossistema PHP,
+com foco na organização do código, na manutenção e na evolução contínua
+da aplicação.
 
-- **Administrador:** gerencia contas e usuários e atribui papéis.
-- **Editor:** cadastra, edita e arquiva contas; registra lançamentos e estornos.
-- **Somente visualização:** consulta contas e extratos sem alterar dados.
+> **Status: Em desenvolvimento.**
+>
+> O sistema ainda está em construção. Suas funcionalidades estão sendo
+> implementadas, testadas e aprimoradas. Portanto, a aplicação pode apresentar
+> recursos incompletos ou sujeitos a alterações.
 
-## Configuração do SGC
+## Objetivo do projeto
 
-1. Instale as dependências com `composer install`.
-2. Configure o `.env` e a conexão com o banco.
-3. Gere a chave com `php artisan key:generate`.
-4. Aplique as migrações com `php artisan migrate`.
-5. Crie a primeira conta administrativa em um terminal interativo:
+Desenvolver uma aplicação web que facilite o controle financeiro,
+centralizando informações sobre contas e movimentações em uma interface
+organizada e de fácil utilização.
 
-```sh
-php artisan users:create-admin admin@example.com "Administrador"
-```
+## Funcionalidades
 
-O comando solicita a senha de forma interativa e exige ao menos 12 caracteres. Não use `migrate:fresh` em bancos que contenham dados: esse comando apaga todas as tabelas.
+As funcionalidades previstas ou em implementação incluem:
 
-Os saldos são calculados em centavos inteiros, a partir do saldo inicial e dos lançamentos. Lançamentos não são editados nem excluídos; para correção, registre um estorno vinculado ao lançamento original.
+- **Gerenciamento de contas:** organização e consulta de contas financeiras.
+- **Controle de movimentações:** estrutura para registrar e consultar
+  movimentações financeiras.
+- **Painel de acompanhamento:** centralização de informações relevantes
+  para a gestão financeira.
+- **Gerenciamento de usuários:** estrutura para administração de usuários
+  e controle de permissões de acesso.
+- **Relatórios financeiros:** suporte à organização e à consulta de
+  informações financeiras por períodos.
+- **Organização das informações:** apresentação dos dados em interfaces
+  desenvolvidas com o sistema de templates Blade.
 
-Os testes de feature usam SQLite em memória e precisam da extensão PDO SQLite habilitada no PHP.
+> A disponibilidade e o funcionamento de cada recurso dependem do estágio
+> atual de desenvolvimento.
 
----
+## Tecnologias utilizadas
 
-## Laravel
+O projeto utiliza as seguintes tecnologias:
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+- **PHP** — linguagem de programação do backend.
+- **Laravel** — framework para desenvolvimento da aplicação web.
+- **Blade** — mecanismo de templates para as interfaces.
+- **MySQL** — sistema de gerenciamento de banco de dados previsto para
+  armazenamento das informações.
+- **HTML e CSS** — estruturação e estilização das interfaces.
+- **JavaScript** — implementação de comportamentos no frontend.
+- **Composer** — gerenciamento de dependências PHP.
+- **Node.js e npm** — gerenciamento de dependências e ferramentas
+  de desenvolvimento do frontend.
+- **Git e GitHub** — controle de versão e hospedagem do código-fonte.
 
-## About Laravel
-
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
-
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
-
-```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
-```
-
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+tests/
+├── Feature/
+└── Unit/
