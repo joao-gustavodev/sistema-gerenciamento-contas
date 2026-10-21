@@ -21,7 +21,7 @@ class FinancialAccountControllerTest extends TestCase
         $this->post(route('accounts.store'))->assertRedirect(route('login'));
     }
 
-    public function test_dashboard_and_account_list_show_financial_accounts(): void
+    public function test_dashboard_and_account_list_show_only_owned_financial_accounts(): void
     {
         $editor = $this->signIn(User::ROLE_EDITOR);
         $account = $this->createAccount($editor, ['name' => 'Conta operacional']);
@@ -30,12 +30,12 @@ class FinancialAccountControllerTest extends TestCase
         $this->get(route('dashboard'))
             ->assertOk()
             ->assertSee('Conta operacional')
-            ->assertSee('Conta reserva');
+            ->assertDontSee('Conta reserva');
 
         $this->get(route('accounts.index'))
             ->assertOk()
             ->assertSee($account->name)
-            ->assertSee('Conta reserva');
+            ->assertDontSee('Conta reserva');
     }
 
     public function test_editor_can_create_account_with_exact_initial_balance(): void
@@ -172,16 +172,14 @@ class FinancialAccountControllerTest extends TestCase
         $this->assertDatabaseCount('account_transactions', 2);
     }
 
-    public function test_viewer_can_read_all_accounts_but_cannot_change_accounts_or_balances(): void
+    public function test_viewer_cannot_read_or_change_accounts_without_a_share(): void
     {
         $accountOwner = User::factory()->create(['role' => User::ROLE_EDITOR]);
         $account = $this->createAccount($accountOwner, ['name' => 'Conta para leitura']);
         $viewer = $this->signIn(User::ROLE_VIEWER);
 
-        $this->get(route('accounts.index'))->assertOk()->assertSee($account->name);
-        $this->get(route('accounts.show', $account))
-            ->assertOk()
-            ->assertSee('Acesso somente para visualização.');
+        $this->get(route('accounts.index'))->assertOk()->assertDontSee($account->name);
+        $this->get(route('accounts.show', $account))->assertForbidden();
         $this->get(route('accounts.create'))->assertForbidden();
         $this->post(route('accounts.store'), [
             'name' => 'Conta proibida',

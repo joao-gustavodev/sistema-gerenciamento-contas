@@ -36,9 +36,7 @@
                             <th>Tipo</th>
                             <th>Saldo atual</th>
                             <th>Situação</th>
-                            @if (auth()->user()->canEditAccounts())
-                                <th>Ações</th>
-                            @endif
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -51,9 +49,13 @@
                                 <td>{{ \App\Models\FinancialAccount::TYPES[$account->type] }}</td>
                                 <td>{{ $account->currency }} {{ $account->current_balance }}</td>
                                 <td>{{ $account->is_active ? 'Ativa' : 'Arquivada' }}</td>
-                                @can('update', $account)
-                                    <td><a href="{{ route('accounts.edit', $account) }}">Editar</a></td>
-                                @endcan
+                                <td>
+                                    @can('update', $account)
+                                        <a href="{{ route('accounts.edit', $account) }}">Editar</a>
+                                    @else
+                                        —
+                                    @endcan
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

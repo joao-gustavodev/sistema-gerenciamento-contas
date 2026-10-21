@@ -14,7 +14,7 @@ class DashboardController extends Controller
     {
         $this->authorize('viewAny', FinancialAccount::class);
 
-        $accounts = $request->user()->visibleAccounts();
+        $accounts = $request->user()->accounts();
         $accountBalances = (clone $accounts)
             ->withSum(['transactions as credits_total' => fn ($query) => $query->where('type', 'credit')], 'amount_minor')
             ->withSum(['transactions as debits_total' => fn ($query) => $query->where('type', 'debit')], 'amount_minor')
@@ -37,9 +37,12 @@ class DashboardController extends Controller
                 ->latest()
                 ->limit(5)
                 ->get(),
-            'recentTransactions' => $request->user()->canEditAccounts()
-                ? AccountTransaction::query()->with('account')->latest()->limit(5)->get()
-                : collect(),
+            'recentTransactions' => AccountTransaction::query()
+                ->whereIn('financial_account_id', $request->user()->accounts()->select('id'))
+                ->with('account')
+                ->latest()
+                ->limit(5)
+                ->get(),
         ]);
     }
 }

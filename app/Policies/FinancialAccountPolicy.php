@@ -14,7 +14,7 @@ class FinancialAccountPolicy
 
     public function view(User $user, FinancialAccount $account): bool
     {
-        return true;
+        return $user->canViewAccount($account);
     }
 
     public function create(User $user): bool
@@ -24,16 +24,16 @@ class FinancialAccountPolicy
 
     public function update(User $user, FinancialAccount $account): bool
     {
-        return $user->canEditAccounts();
+        return $user->canEditAccount($account);
     }
 
     public function createTransaction(User $user, FinancialAccount $account): bool
     {
-        return $user->canEditAccounts();
+        return $user->canEditAccount($account);
     }
 
     public function reverseTransaction(User $user, FinancialAccount $account): bool
     {
-        return $user->canEditAccounts();
+        return $user->canEditAccount($account);
     }
 }

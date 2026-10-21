@@ -64,6 +64,12 @@ class AccountTransactionController extends Controller
                 ]);
             }
 
+            if ($original->revenueReceipt()->exists()) {
+                throw ValidationException::withMessages([
+                    'transaction' => 'Cancele a receita pelo módulo de receitas.',
+                ]);
+            }
+
             if ($lockedAccount->transactions()->where('reversal_of_id', $original->id)->exists()) {
                 throw ValidationException::withMessages([
                     'transaction' => 'Este lançamento já possui um estorno.',

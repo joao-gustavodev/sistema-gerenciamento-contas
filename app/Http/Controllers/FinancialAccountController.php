@@ -14,6 +14,7 @@ class FinancialAccountController extends Controller
     public function index(Request $request): View
     {
         $this->authorize('viewAny', FinancialAccount::class);
+        $request->user()->loadMissing('sharesReceived');
 
         $search = trim((string) $request->query('search', ''));
         $active = $request->query('active');
@@ -97,7 +98,7 @@ class FinancialAccountController extends Controller
         return view('accounts.show', [
             'account' => $account,
             'transactions' => $account->transactions()
-                ->with(['poster', 'reversal'])
+                ->with(['poster', 'reversal', 'revenueReceipt'])
                 ->latest('created_at')
                 ->paginate(20),
         ]);

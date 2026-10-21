@@ -102,7 +102,7 @@
                                 <td>{{ $transaction->poster?->name ?? 'Conta encerrada' }}</td>
                                 @can('reverseTransaction', $account)
                                     <td>
-                                        @if (! $transaction->reversal_of_id && ! $transaction->reversal)
+                                        @if (! $transaction->reversal_of_id && ! $transaction->reversal && ! $transaction->revenueReceipt)
                                             <form action="{{ route('accounts.transactions.reverse', [$account, $transaction]) }}" method="POST">
                                                 @csrf
                                                 <label class="sr-only" for="reason-{{ $transaction->id }}">Motivo do estorno do lançamento #{{ $transaction->id }}</label>

@@ -53,6 +53,8 @@
             @auth
                 <a href="{{ route('dashboard') }}" @class(['active' => request()->routeIs('dashboard')])>Visão geral</a>
                 <a href="{{ route('accounts.index') }}" @class(['active' => request()->routeIs('accounts.*')])>Contas financeiras</a>
+                <a href="{{ route('revenues.index') }}" @class(['active' => request()->routeIs('revenues.*')])>Receitas</a>
+                <a href="{{ route('sharing.index') }}" @class(['active' => request()->routeIs('sharing.*')])>Compartilhamento</a>
                 @if (auth()->user()->isAdmin())
                     <a href="{{ route('users.index') }}" @class(['active' => request()->routeIs('users.*')])>Usuários</a>
                     <a href="{{ route('permissions.index') }}" @class(['active' => request()->routeIs('permissions.*')])>Permissões</a>

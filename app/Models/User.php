@@ -36,6 +36,11 @@ class User extends Authenticatable
         return $this->hasMany(FinancialAccount::class, 'created_by');
     }
 
+    public function revenues(): HasMany
+    {
+        return $this->hasMany(Revenue::class);
+    }
+
     public function postedTransactions(): HasMany
     {
         return $this->hasMany(AccountTransaction::class, 'posted_by');
@@ -43,7 +48,53 @@ class User extends Authenticatable
 
     public function visibleAccounts(): Builder
     {
-        return FinancialAccount::query();
+        return FinancialAccount::query()->where(function (Builder $query): void {
+            $query->where('created_by', $this->getKey())
+                ->orWhereIn('created_by', $this->sharesReceived()
+                    ->where('status', UserShare::STATUS_ACTIVE)
+                    ->select('owner_id'));
+        });
+    }
+
+    public function sharesGranted(): HasMany
+    {
+        return $this->hasMany(UserShare::class, 'owner_id');
+    }
+
+    public function sharesReceived(): HasMany
+    {
+        return $this->hasMany(UserShare::class, 'recipient_id');
+    }
+
+    public function canViewAccount(FinancialAccount $account): bool
+    {
+        if ((int) $account->created_by === (int) $this->getKey()) {
+            return true;
+        }
+
+        return $this->activeShareForAccount($account) !== null;
+    }
+
+    public function canEditAccount(FinancialAccount $account): bool
+    {
+        if ((int) $account->created_by === (int) $this->getKey()) {
+            return $this->canEditAccounts();
+        }
+
+        return $this->activeShareForAccount($account)?->permission === UserShare::PERMISSION_EDIT;
+    }
+
+    private function activeShareForAccount(FinancialAccount $account): ?UserShare
+    {
+        if ($this->relationLoaded('sharesReceived')) {
+            return $this->sharesReceived->first(fn (UserShare $share): bool => (int) $share->owner_id === (int) $account->created_by
+                && $share->status === UserShare::STATUS_ACTIVE);
+        }
+
+        return $this->sharesReceived()
+            ->where('owner_id', $account->created_by)
+            ->where('status', UserShare::STATUS_ACTIVE)
+            ->first();
     }
 
     public function isAdmin(): bool

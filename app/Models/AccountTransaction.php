@@ -62,4 +62,9 @@ class AccountTransaction extends Model
     {
         return $this->hasOne(self::class, 'reversal_of_id');
     }
+
+    public function revenueReceipt(): HasOne
+    {
+        return $this->hasOne(Revenue::class, 'account_transaction_id');
+    }
 }
